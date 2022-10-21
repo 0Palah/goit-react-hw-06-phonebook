@@ -6,6 +6,7 @@ const contactsSlice = createSlice({
   initialState: contactsInitialState,
   reducers: {
     addContactAction: (state, action) => {
+      console.log(action);
       state.contacts.unshift(action.payload);
     },
     deleteContactAction: (state, action) => {
