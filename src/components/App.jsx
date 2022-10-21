@@ -11,6 +11,7 @@ const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
+  // записуємо з ЛокалСтореджа в Стейт
   useEffect(() => {
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
@@ -19,6 +20,7 @@ const App = () => {
     }
   }, []);
 
+  // записуємо в ЛокалСторедж зі Стейт, при зміні Стейту
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);

@@ -28,7 +28,6 @@ const ContactForm = ({ onAddContact }) => {
     <form className={css.form} onSubmit={handleSubmit}>
       <div className={css.wrapper}>
         <div>
-          {' '}
           <label htmlFor="inputName">Name</label>
           <input
             id="inputName"
