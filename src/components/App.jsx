@@ -7,10 +7,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactsList from './ContactsList/ContactsList';
 import Filter from './Filter/Filter';
 import css from './App.module.css';
-import {
-  addContactAction,
-  deleteContactAction,
-} from 'redux/constants/slice.contacts';
+import { addContactAction } from 'redux/constants/slice.contacts';
 import { addFilterAction } from 'redux/filter/slice.filter';
 
 const App = () => {
@@ -18,7 +15,6 @@ const App = () => {
   // const [filter, setFilter] = useState('');
   const { contacts } = useSelector(state => state.contacts);
   const { filter } = useSelector(state => state.filter);
-
   const dispatch = useDispatch();
 
   // // записуємо з ЛокалСтореджа в Стейт
@@ -40,32 +36,29 @@ const App = () => {
     const namesArr = contacts.map(el => el.name.toLocaleLowerCase());
 
     if (!namesArr.includes(name.toLocaleLowerCase())) {
-      dispatch(addContactAction())(prev => [
-        ...prev,
-        { id: nanoid(10), name: name, number: number },
-      ]);
+      dispatch(addContactAction({ id: nanoid(10), name, number }));
     } else {
       alert(`${name} is already in contact.`);
     }
   };
 
   // Видаляємо зі Стейту по ID
-  const handleDeleteUser = userId => dispatch(deleteContactAction(userId));
+  // const handleDeleteUser = userId => dispatch(deleteContactAction(userId));
 
   // // Записуємо пошуковий рядок у Стейт
   const handleChangeSearch = evt => {
     dispatch(addFilterAction(evt.target.value));
   };
 
-  // Фільтруємо за наявністю підрядка з Фільтру в іменах Контактів
-  const applyFilters = () => {
-    console.log(contacts);
-    return contacts.filter(({ name }) => {
-      if (filter && !name.toLowerCase().includes(filter.toLowerCase()))
-        return false;
-      return true;
-    });
-  };
+  // // Фільтруємо за наявністю підрядка з Фільтру в іменах Контактів
+  // const applyFilters = () => {
+  //   console.log(contacts);
+  //   return contacts.filter(({ name }) => {
+  //     if (filter && !name.toLowerCase().includes(filter.toLowerCase()))
+  //       return false;
+  //     return true;
+  //   });
+  // };
 
   return (
     <div className={css.appWrapper}>
@@ -74,10 +67,7 @@ const App = () => {
       </Section>
       <Section title="Contacts">
         <Filter filter={filter} onChangeSearch={handleChangeSearch} />
-        <ContactsList
-          contacts={applyFilters()}
-          onDeleteUser={handleDeleteUser}
-        />
+        <ContactsList />
       </Section>
     </div>
   );

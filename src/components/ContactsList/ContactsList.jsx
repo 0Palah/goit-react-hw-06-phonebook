@@ -1,17 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import css from './ContactsList.module.css';
+import { deleteContactAction } from 'redux/constants/slice.contacts';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ContactsList = ({ contacts, onDeleteUser }) => {
+// Видаляємо зі Стейту по ID
+
+const ContactsList = () => {
+  const { contacts } = useSelector(state => state.contacts);
+  const { filter } = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+  const handleDeleteUser = userId => dispatch(deleteContactAction(userId));
+
+  // Фільтруємо за наявністю підрядка з Фільтру в іменах Контактів
+  const applyFilters = () => {
+    console.log(contacts);
+    return contacts.filter(({ name }) => {
+      if (filter && !name.toLowerCase().includes(filter.toLowerCase()))
+        return false;
+      return true;
+    });
+  };
+
   return (
     <ul className={css.contListWrapper}>
-      {contacts.map(el => (
+      {applyFilters().map(el => (
         <li key={el.id}>
           {el.name}: {el.number}
           <button
             type="button"
             className={css.button}
-            onClick={() => onDeleteUser(el.id)}
+            onClick={() => handleDeleteUser(el.id)}
           >
             Delete
           </button>
@@ -19,13 +37,6 @@ const ContactsList = ({ contacts, onDeleteUser }) => {
       ))}
     </ul>
   );
-};
-
-ContactsList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({ id: PropTypes.string.isRequired })
-  ),
-  onDeleteUser: PropTypes.func.isRequired,
 };
 
 export default ContactsList;
