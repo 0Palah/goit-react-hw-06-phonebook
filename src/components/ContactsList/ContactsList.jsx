@@ -9,11 +9,11 @@ const ContactsList = () => {
   const { contacts } = useSelector(state => state.contacts);
   const { filter } = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
   const handleDeleteUser = userId => dispatch(deleteContactAction(userId));
 
   // Фільтруємо за наявністю підрядка з Фільтру в іменах Контактів
   const applyFilters = () => {
-    console.log(contacts);
     return contacts.filter(({ name }) => {
       if (filter && !name.toLowerCase().includes(filter.toLowerCase()))
         return false;

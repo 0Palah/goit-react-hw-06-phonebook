@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import { contactsInitialState } from './initiale-state.contacts';
+
+// const addContactAction1 = createAction('contacts/addContactAction', user => {});
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
   reducers: {
     addContactAction: (state, action) => {
-      console.log(state);
       state.contacts.unshift(action.payload);
     },
     deleteContactAction: (state, action) => {
@@ -17,6 +18,5 @@ const contactsSlice = createSlice({
   },
 });
 
-console.log(contactsSlice);
 export const contactsReducer = contactsSlice.reducer;
 export const { addContactAction, deleteContactAction } = contactsSlice.actions;
