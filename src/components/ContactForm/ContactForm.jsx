@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactAction } from 'redux/constants/slice.contacts';
 import css from './ContactForm.module.css';
@@ -26,7 +26,13 @@ const ContactForm = () => {
     const namesArr = contacts.map(el => el.name.toLocaleLowerCase());
 
     if (!namesArr.includes(name.toLocaleLowerCase())) {
-      dispatch(addContactAction({ id: nanoid(10), name, number }));
+      dispatch(
+        addContactAction({
+          // id: nanoid(10),
+          name,
+          number,
+        })
+      );
     } else {
       alert(`${name} is already in contact.`);
     }
