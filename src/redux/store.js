@@ -12,9 +12,10 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+// import persistReducer from 'redux-persist/es/persistReducer';
 
 const persistConfig = {
-  key: 'app',
+  key: 'contacts',
   storage,
 };
 
